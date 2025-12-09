@@ -463,6 +463,7 @@ option(NATIVE_ARCH "Compile targeting the native architecture" FALSE)
 option(OVERRIDE_NEW_DELETE "Override C++ new/delete (only when jemalloc is enabled)" FALSE)
 option(SET_DUCKDB_LIBRARY_VERSION "Whether or not to set the DuckDB Library version and emit versioned shared libraries" FALSE)
 option(PREBUILT_BINARY "Whether to use a prebuilt version of the DuckDB library, typically called libduckdb_static.a" "")
+option(DUCKDB_API_USE_CONST "Whether or not to use const in the DuckDB C API" FALSE)
 
 if(${BUILD_RDTSC})
   add_compile_definitions(RDTSC)
@@ -564,6 +565,10 @@ endif()
 
 if(FORCE_DEBUG)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
+endif()
+
+if(DUCKDB_API_USE_CONST)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDUCKDB_API_USE_CONST")
 endif()
 
 if(STANDALONE_DEBUG)

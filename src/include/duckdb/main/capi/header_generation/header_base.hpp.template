@@ -36,6 +36,12 @@
 #endif
 #endif
 
+#if DUCKDB_API_USE_CONST
+#define DUCKDB_API_CONST const
+#else
+#define DUCKDB_API_CONST
+#endif
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
