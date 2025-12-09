@@ -203,44 +203,47 @@ typedef struct {
 	duckdb_value (*duckdb_create_decimal)(duckdb_decimal input);
 	duckdb_value (*duckdb_create_bit)(duckdb_bit input);
 	duckdb_value (*duckdb_create_uuid)(duckdb_uhugeint input);
-	bool (*duckdb_get_bool)(duckdb_value val);
-	int8_t (*duckdb_get_int8)(duckdb_value val);
-	uint8_t (*duckdb_get_uint8)(duckdb_value val);
-	int16_t (*duckdb_get_int16)(duckdb_value val);
-	uint16_t (*duckdb_get_uint16)(duckdb_value val);
-	int32_t (*duckdb_get_int32)(duckdb_value val);
-	uint32_t (*duckdb_get_uint32)(duckdb_value val);
-	int64_t (*duckdb_get_int64)(duckdb_value val);
-	uint64_t (*duckdb_get_uint64)(duckdb_value val);
-	duckdb_hugeint (*duckdb_get_hugeint)(duckdb_value val);
-	duckdb_uhugeint (*duckdb_get_uhugeint)(duckdb_value val);
-	float (*duckdb_get_float)(duckdb_value val);
-	double (*duckdb_get_double)(duckdb_value val);
-	duckdb_date (*duckdb_get_date)(duckdb_value val);
-	duckdb_time (*duckdb_get_time)(duckdb_value val);
-	duckdb_time_tz (*duckdb_get_time_tz)(duckdb_value val);
-	duckdb_timestamp (*duckdb_get_timestamp)(duckdb_value val);
-	duckdb_interval (*duckdb_get_interval)(duckdb_value val);
-	duckdb_logical_type (*duckdb_get_value_type)(duckdb_value val);
-	duckdb_blob (*duckdb_get_blob)(duckdb_value val);
-	duckdb_bignum (*duckdb_get_bignum)(duckdb_value val);
-	duckdb_decimal (*duckdb_get_decimal)(duckdb_value val);
-	duckdb_bit (*duckdb_get_bit)(duckdb_value val);
-	duckdb_uhugeint (*duckdb_get_uuid)(duckdb_value val);
-	char *(*duckdb_get_varchar)(duckdb_value value);
-	duckdb_value (*duckdb_create_struct_value)(duckdb_logical_type type, duckdb_value *values);
-	duckdb_value (*duckdb_create_list_value)(duckdb_logical_type type, duckdb_value *values, idx_t value_count);
-	duckdb_value (*duckdb_create_array_value)(duckdb_logical_type type, duckdb_value *values, idx_t value_count);
-	idx_t (*duckdb_get_map_size)(duckdb_value value);
-	duckdb_value (*duckdb_get_map_key)(duckdb_value value, idx_t index);
-	duckdb_value (*duckdb_get_map_value)(duckdb_value value, idx_t index);
-	bool (*duckdb_is_null_value)(duckdb_value value);
+	bool (*duckdb_get_bool)(duckdb_value_const val);
+	int8_t (*duckdb_get_int8)(duckdb_value_const val);
+	uint8_t (*duckdb_get_uint8)(duckdb_value_const val);
+	int16_t (*duckdb_get_int16)(duckdb_value_const val);
+	uint16_t (*duckdb_get_uint16)(duckdb_value_const val);
+	int32_t (*duckdb_get_int32)(duckdb_value_const val);
+	uint32_t (*duckdb_get_uint32)(duckdb_value_const val);
+	int64_t (*duckdb_get_int64)(duckdb_value_const val);
+	uint64_t (*duckdb_get_uint64)(duckdb_value_const val);
+	duckdb_hugeint (*duckdb_get_hugeint)(duckdb_value_const val);
+	duckdb_uhugeint (*duckdb_get_uhugeint)(duckdb_value_const val);
+	float (*duckdb_get_float)(duckdb_value_const val);
+	double (*duckdb_get_double)(duckdb_value_const val);
+	duckdb_date (*duckdb_get_date)(duckdb_value_const val);
+	duckdb_time (*duckdb_get_time)(duckdb_value_const val);
+	duckdb_time_tz (*duckdb_get_time_tz)(duckdb_value_const val);
+	duckdb_timestamp (*duckdb_get_timestamp)(duckdb_value_const val);
+	duckdb_interval (*duckdb_get_interval)(duckdb_value_const val);
+	duckdb_logical_type (*duckdb_get_value_type)(duckdb_value_const val);
+	duckdb_blob (*duckdb_get_blob)(duckdb_value_const val);
+	duckdb_bignum (*duckdb_get_bignum)(duckdb_value_const val);
+	duckdb_decimal (*duckdb_get_decimal)(duckdb_value_const val);
+	duckdb_bit (*duckdb_get_bit)(duckdb_value_const val);
+	duckdb_uhugeint (*duckdb_get_uuid)(duckdb_value_const val);
+	char *(*duckdb_get_varchar)(duckdb_value_const value);
+	duckdb_value (*duckdb_create_struct_value)(duckdb_logical_type_const type,
+	                                           duckdb_value_const DUCKDB_API_CONST *values);
+	duckdb_value (*duckdb_create_list_value)(duckdb_logical_type_const type,
+	                                         duckdb_value_const DUCKDB_API_CONST *values, idx_t value_count);
+	duckdb_value (*duckdb_create_array_value)(duckdb_logical_type_const type,
+	                                          duckdb_value_const DUCKDB_API_CONST *values, idx_t value_count);
+	idx_t (*duckdb_get_map_size)(duckdb_value_const value);
+	duckdb_value (*duckdb_get_map_key)(duckdb_value_const value, idx_t index);
+	duckdb_value (*duckdb_get_map_value)(duckdb_value_const value, idx_t index);
+	bool (*duckdb_is_null_value)(duckdb_value_const value);
 	duckdb_value (*duckdb_create_null_value)();
-	idx_t (*duckdb_get_list_size)(duckdb_value value);
-	duckdb_value (*duckdb_get_list_child)(duckdb_value value, idx_t index);
-	duckdb_value (*duckdb_create_enum_value)(duckdb_logical_type type, uint64_t value);
-	uint64_t (*duckdb_get_enum_value)(duckdb_value value);
-	duckdb_value (*duckdb_get_struct_child)(duckdb_value value, idx_t index);
+	idx_t (*duckdb_get_list_size)(duckdb_value_const value);
+	duckdb_value (*duckdb_get_list_child)(duckdb_value_const value, idx_t index);
+	duckdb_value (*duckdb_create_enum_value)(duckdb_logical_type_const type, uint64_t value);
+	uint64_t (*duckdb_get_enum_value)(duckdb_value_const value);
+	duckdb_value (*duckdb_get_struct_child)(duckdb_value_const value, idx_t index);
 	duckdb_logical_type (*duckdb_create_logical_type)(duckdb_type type);
 	char *(*duckdb_logical_type_get_alias)(duckdb_logical_type type);
 	void (*duckdb_logical_type_set_alias)(duckdb_logical_type type, const char *alias);
@@ -438,10 +441,10 @@ typedef struct {
 	duckdb_value (*duckdb_create_timestamp_s)(duckdb_timestamp_s input);
 	duckdb_value (*duckdb_create_timestamp_ms)(duckdb_timestamp_ms input);
 	duckdb_value (*duckdb_create_timestamp_ns)(duckdb_timestamp_ns input);
-	duckdb_timestamp (*duckdb_get_timestamp_tz)(duckdb_value val);
-	duckdb_timestamp_s (*duckdb_get_timestamp_s)(duckdb_value val);
-	duckdb_timestamp_ms (*duckdb_get_timestamp_ms)(duckdb_value val);
-	duckdb_timestamp_ns (*duckdb_get_timestamp_ns)(duckdb_value val);
+	duckdb_timestamp (*duckdb_get_timestamp_tz)(duckdb_value_const val);
+	duckdb_timestamp_s (*duckdb_get_timestamp_s)(duckdb_value_const val);
+	duckdb_timestamp_ms (*duckdb_get_timestamp_ms)(duckdb_value_const val);
+	duckdb_timestamp_ns (*duckdb_get_timestamp_ns)(duckdb_value_const val);
 	duckdb_state (*duckdb_append_value)(duckdb_appender appender, duckdb_value value);
 	duckdb_profiling_info (*duckdb_get_profiling_info)(duckdb_connection connection);
 	duckdb_value (*duckdb_profiling_info_get_value)(duckdb_profiling_info info, const char *key);
@@ -729,7 +732,7 @@ typedef struct {
 
 // New string functions that are added
 #ifdef DUCKDB_EXTENSION_API_VERSION_UNSTABLE
-	char *(*duckdb_value_to_string)(duckdb_value value);
+	char *(*duckdb_value_to_string)(duckdb_value_const value);
 #endif
 
 // New functions around the table description
@@ -746,11 +749,13 @@ typedef struct {
 
 // New value functions that are added
 #ifdef DUCKDB_EXTENSION_API_VERSION_UNSTABLE
-	duckdb_value (*duckdb_create_map_value)(duckdb_logical_type map_type, duckdb_value *keys, duckdb_value *values,
-	                                        idx_t entry_count);
-	duckdb_value (*duckdb_create_union_value)(duckdb_logical_type union_type, idx_t tag_index, duckdb_value value);
+	duckdb_value (*duckdb_create_map_value)(duckdb_logical_type_const map_type,
+	                                        duckdb_value_const DUCKDB_API_CONST *keys,
+	                                        duckdb_value_const DUCKDB_API_CONST *values, idx_t entry_count);
+	duckdb_value (*duckdb_create_union_value)(duckdb_logical_type_const union_type, idx_t tag_index,
+	                                          duckdb_value_const value);
 	duckdb_value (*duckdb_create_time_ns)(duckdb_time_ns input);
-	duckdb_time_ns (*duckdb_get_time_ns)(duckdb_value val);
+	duckdb_time_ns (*duckdb_get_time_ns)(duckdb_value_const val);
 #endif
 
 // API to create and manipulate vector types

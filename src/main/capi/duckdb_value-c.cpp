@@ -14,12 +14,12 @@ static duckdb_value WrapValue(duckdb::Value *value) {
 	return reinterpret_cast<duckdb_value>(value);
 }
 
-static duckdb::LogicalType &UnwrapType(duckdb_logical_type type) {
-	return *(reinterpret_cast<duckdb::LogicalType *>(type));
+static duckdb::LogicalType DUCKDB_API_CONST &UnwrapType(duckdb_logical_type_const type) {
+	return *(reinterpret_cast<duckdb::LogicalType DUCKDB_API_CONST *>(type));
 }
 
-static duckdb::Value &UnwrapValue(duckdb_value value) {
-	return *(reinterpret_cast<duckdb::Value *>(value));
+static duckdb::Value DUCKDB_API_CONST &UnwrapValue(duckdb_value_const value) {
+	return *(reinterpret_cast<duckdb::Value DUCKDB_API_CONST *>(value));
 }
 void duckdb_destroy_value(duckdb_value *value) {
 	if (value && *value) {
@@ -43,7 +43,7 @@ static duckdb_value CAPICreateValue(T input) {
 }
 
 template <class T, LogicalTypeId TYPE_ID>
-static T CAPIGetValue(duckdb_value val) {
+static T CAPIGetValue(duckdb_value_const val) {
 	auto &v = UnwrapValue(val);
 	if (!v.DefaultTryCastAs(TYPE_ID)) {
 		return duckdb::NullValue<T>();
@@ -54,68 +54,68 @@ static T CAPIGetValue(duckdb_value val) {
 duckdb_value duckdb_create_bool(bool input) {
 	return CAPICreateValue(input);
 }
-bool duckdb_get_bool(duckdb_value val) {
+bool duckdb_get_bool(duckdb_value_const val) {
 	return CAPIGetValue<bool, LogicalTypeId::BOOLEAN>(val);
 }
 duckdb_value duckdb_create_int8(int8_t input) {
 	return CAPICreateValue(input);
 }
-int8_t duckdb_get_int8(duckdb_value val) {
+int8_t duckdb_get_int8(duckdb_value_const val) {
 	return CAPIGetValue<int8_t, LogicalTypeId::TINYINT>(val);
 }
 duckdb_value duckdb_create_uint8(uint8_t input) {
 	return CAPICreateValue(input);
 }
-uint8_t duckdb_get_uint8(duckdb_value val) {
+uint8_t duckdb_get_uint8(duckdb_value_const val) {
 	return CAPIGetValue<uint8_t, LogicalTypeId::UTINYINT>(val);
 }
 duckdb_value duckdb_create_int16(int16_t input) {
 	return CAPICreateValue(input);
 }
-int16_t duckdb_get_int16(duckdb_value val) {
+int16_t duckdb_get_int16(duckdb_value_const val) {
 	return CAPIGetValue<int16_t, LogicalTypeId::SMALLINT>(val);
 }
 duckdb_value duckdb_create_uint16(uint16_t input) {
 	return CAPICreateValue(input);
 }
-uint16_t duckdb_get_uint16(duckdb_value val) {
+uint16_t duckdb_get_uint16(duckdb_value_const val) {
 	return CAPIGetValue<uint16_t, LogicalTypeId::USMALLINT>(val);
 }
 duckdb_value duckdb_create_int32(int32_t input) {
 	return CAPICreateValue(input);
 }
-int32_t duckdb_get_int32(duckdb_value val) {
+int32_t duckdb_get_int32(duckdb_value_const val) {
 	return CAPIGetValue<int32_t, LogicalTypeId::INTEGER>(val);
 }
 duckdb_value duckdb_create_uint32(uint32_t input) {
 	return CAPICreateValue(input);
 }
-uint32_t duckdb_get_uint32(duckdb_value val) {
+uint32_t duckdb_get_uint32(duckdb_value_const val) {
 	return CAPIGetValue<uint32_t, LogicalTypeId::UINTEGER>(val);
 }
 duckdb_value duckdb_create_uint64(uint64_t input) {
 	return CAPICreateValue(input);
 }
-uint64_t duckdb_get_uint64(duckdb_value val) {
+uint64_t duckdb_get_uint64(duckdb_value_const val) {
 	return CAPIGetValue<uint64_t, LogicalTypeId::UBIGINT>(val);
 }
 duckdb_value duckdb_create_int64(int64_t input) {
 	return CAPICreateValue(input);
 }
-int64_t duckdb_get_int64(duckdb_value val) {
+int64_t duckdb_get_int64(duckdb_value_const val) {
 	return CAPIGetValue<int64_t, LogicalTypeId::BIGINT>(val);
 }
 duckdb_value duckdb_create_hugeint(duckdb_hugeint input) {
 	return WrapValue(new duckdb::Value(duckdb::Value::HUGEINT(duckdb::hugeint_t(input.upper, input.lower))));
 }
-duckdb_hugeint duckdb_get_hugeint(duckdb_value val) {
+duckdb_hugeint duckdb_get_hugeint(duckdb_value_const val) {
 	auto res = CAPIGetValue<duckdb::hugeint_t, LogicalTypeId::HUGEINT>(val);
 	return {res.lower, res.upper};
 }
 duckdb_value duckdb_create_uhugeint(duckdb_uhugeint input) {
 	return WrapValue(new duckdb::Value(duckdb::Value::UHUGEINT(duckdb::uhugeint_t(input.upper, input.lower))));
 }
-duckdb_uhugeint duckdb_get_uhugeint(duckdb_value val) {
+duckdb_uhugeint duckdb_get_uhugeint(duckdb_value_const val) {
 	auto res = CAPIGetValue<duckdb::uhugeint_t, LogicalTypeId::UHUGEINT>(val);
 	return {res.lower, res.upper};
 }
@@ -123,7 +123,7 @@ duckdb_value duckdb_create_bignum(duckdb_bignum input) {
 	return WrapValue(new duckdb::Value(
 	    duckdb::Value::BIGNUM(duckdb::Bignum::FromByteArray(input.data, input.size, input.is_negative))));
 }
-duckdb_bignum duckdb_get_bignum(duckdb_value val) {
+duckdb_bignum duckdb_get_bignum(duckdb_value_const val) {
 	auto v = UnwrapValue(val).DefaultCastAs(duckdb::LogicalType::BIGNUM);
 	auto &str = duckdb::StringValue::Get(v);
 	duckdb::vector<uint8_t> byte_array;
@@ -145,7 +145,7 @@ duckdb_value duckdb_create_decimal(duckdb_decimal input) {
 		return WrapValue(new duckdb::Value(duckdb::Value::DECIMAL(hugeint, input.width, input.scale)));
 	}
 }
-duckdb_decimal duckdb_get_decimal(duckdb_value val) {
+duckdb_decimal duckdb_get_decimal(duckdb_value_const val) {
 	auto &v = UnwrapValue(val);
 	auto &type = v.type();
 	if (type.id() != LogicalTypeId::DECIMAL) {
@@ -159,37 +159,37 @@ duckdb_decimal duckdb_get_decimal(duckdb_value val) {
 duckdb_value duckdb_create_float(float input) {
 	return CAPICreateValue(input);
 }
-float duckdb_get_float(duckdb_value val) {
+float duckdb_get_float(duckdb_value_const val) {
 	return CAPIGetValue<float, LogicalTypeId::FLOAT>(val);
 }
 duckdb_value duckdb_create_double(double input) {
 	return CAPICreateValue(input);
 }
-double duckdb_get_double(duckdb_value val) {
+double duckdb_get_double(duckdb_value_const val) {
 	return CAPIGetValue<double, LogicalTypeId::DOUBLE>(val);
 }
 duckdb_value duckdb_create_date(duckdb_date input) {
 	return CAPICreateValue(duckdb::date_t(input.days));
 }
-duckdb_date duckdb_get_date(duckdb_value val) {
+duckdb_date duckdb_get_date(duckdb_value_const val) {
 	return {CAPIGetValue<duckdb::date_t, LogicalTypeId::DATE>(val).days};
 }
 duckdb_value duckdb_create_time(duckdb_time input) {
 	return CAPICreateValue(duckdb::dtime_t(input.micros));
 }
-duckdb_time duckdb_get_time(duckdb_value val) {
+duckdb_time duckdb_get_time(duckdb_value_const val) {
 	return {CAPIGetValue<duckdb::dtime_t, LogicalTypeId::TIME>(val).micros};
 }
 duckdb_value duckdb_create_time_tz_value(duckdb_time_tz input) {
 	return CAPICreateValue(duckdb::dtime_tz_t(input.bits));
 }
-duckdb_time_tz duckdb_get_time_tz(duckdb_value val) {
+duckdb_time_tz duckdb_get_time_tz(duckdb_value_const val) {
 	return {CAPIGetValue<duckdb::dtime_tz_t, LogicalTypeId::TIME_TZ>(val).bits};
 }
 duckdb_value duckdb_create_time_ns(duckdb_time_ns input) {
 	return CAPICreateValue(duckdb::dtime_ns_t(input.nanos));
 }
-duckdb_time_ns duckdb_get_time_ns(duckdb_value val) {
+duckdb_time_ns duckdb_get_time_ns(duckdb_value_const val) {
 	return {CAPIGetValue<duckdb::dtime_ns_t, LogicalTypeId::TIME_NS>(val).micros};
 }
 
@@ -198,7 +198,7 @@ duckdb_value duckdb_create_timestamp(duckdb_timestamp input) {
 	return CAPICreateValue(ts);
 }
 
-duckdb_timestamp duckdb_get_timestamp(duckdb_value val) {
+duckdb_timestamp duckdb_get_timestamp(duckdb_value_const val) {
 	if (!val) {
 		return {0};
 	}
@@ -210,7 +210,7 @@ duckdb_value duckdb_create_timestamp_tz(duckdb_timestamp input) {
 	return CAPICreateValue(ts);
 }
 
-duckdb_timestamp duckdb_get_timestamp_tz(duckdb_value val) {
+duckdb_timestamp duckdb_get_timestamp_tz(duckdb_value_const val) {
 	if (!val) {
 		return {0};
 	}
@@ -222,7 +222,7 @@ duckdb_value duckdb_create_timestamp_s(duckdb_timestamp_s input) {
 	return CAPICreateValue(ts);
 }
 
-duckdb_timestamp_s duckdb_get_timestamp_s(duckdb_value val) {
+duckdb_timestamp_s duckdb_get_timestamp_s(duckdb_value_const val) {
 	if (!val) {
 		return {0};
 	}
@@ -234,7 +234,7 @@ duckdb_value duckdb_create_timestamp_ms(duckdb_timestamp_ms input) {
 	return CAPICreateValue(ts);
 }
 
-duckdb_timestamp_ms duckdb_get_timestamp_ms(duckdb_value val) {
+duckdb_timestamp_ms duckdb_get_timestamp_ms(duckdb_value_const val) {
 	if (!val) {
 		return {0};
 	}
@@ -246,7 +246,7 @@ duckdb_value duckdb_create_timestamp_ns(duckdb_timestamp_ns input) {
 	return CAPICreateValue(ts);
 }
 
-duckdb_timestamp_ns duckdb_get_timestamp_ns(duckdb_value val) {
+duckdb_timestamp_ns duckdb_get_timestamp_ns(duckdb_value_const val) {
 	if (!val) {
 		return {0};
 	}
@@ -256,14 +256,14 @@ duckdb_timestamp_ns duckdb_get_timestamp_ns(duckdb_value val) {
 duckdb_value duckdb_create_interval(duckdb_interval input) {
 	return WrapValue(new duckdb::Value(duckdb::Value::INTERVAL(input.months, input.days, input.micros)));
 }
-duckdb_interval duckdb_get_interval(duckdb_value val) {
+duckdb_interval duckdb_get_interval(duckdb_value_const val) {
 	auto interval = CAPIGetValue<duckdb::interval_t, LogicalTypeId::INTERVAL>(val);
 	return {interval.months, interval.days, interval.micros};
 }
 duckdb_value duckdb_create_blob(const uint8_t *data, idx_t length) {
 	return WrapValue(new duckdb::Value(duckdb::Value::BLOB((const uint8_t *)data, length)));
 }
-duckdb_blob duckdb_get_blob(duckdb_value val) {
+duckdb_blob duckdb_get_blob(duckdb_value_const val) {
 	auto res = UnwrapValue(val).DefaultCastAs(duckdb::LogicalType::BLOB);
 	auto &str = duckdb::StringValue::Get(res);
 
@@ -274,7 +274,7 @@ duckdb_blob duckdb_get_blob(duckdb_value val) {
 duckdb_value duckdb_create_bit(duckdb_bit input) {
 	return WrapValue(new duckdb::Value(duckdb::Value::BIT(input.data, input.size)));
 }
-duckdb_bit duckdb_get_bit(duckdb_value val) {
+duckdb_bit duckdb_get_bit(duckdb_value_const val) {
 	auto v = UnwrapValue(val).DefaultCastAs(duckdb::LogicalType::BIT);
 	auto &str = duckdb::StringValue::Get(v);
 	auto size = str.size();
@@ -286,19 +286,19 @@ duckdb_value duckdb_create_uuid(duckdb_uhugeint input) {
 	// uhugeint_t has a constexpr ctor with upper first
 	return WrapValue(new duckdb::Value(duckdb::Value::UUID(duckdb::UUID::FromUHugeint({input.upper, input.lower}))));
 }
-duckdb_uhugeint duckdb_get_uuid(duckdb_value val) {
+duckdb_uhugeint duckdb_get_uuid(duckdb_value_const val) {
 	auto hugeint = CAPIGetValue<duckdb::hugeint_t, LogicalTypeId::UUID>(val);
 	auto uhugeint = duckdb::UUID::ToUHugeint(hugeint);
 	// duckdb_uhugeint has no constexpr ctor; struct is lower first
 	return {uhugeint.lower, uhugeint.upper};
 }
 
-duckdb_logical_type duckdb_get_value_type(duckdb_value val) {
+duckdb_logical_type duckdb_get_value_type(duckdb_value_const val) {
 	auto &type = UnwrapValue(val).type();
 	return (duckdb_logical_type)(&type);
 }
 
-char *duckdb_get_varchar(duckdb_value value) {
+char *duckdb_get_varchar(duckdb_value_const value) {
 	auto val = reinterpret_cast<duckdb::Value *>(value);
 	auto str_val = val->DefaultCastAs(duckdb::LogicalType::VARCHAR);
 	auto &str = duckdb::StringValue::Get(str_val);
@@ -308,7 +308,7 @@ char *duckdb_get_varchar(duckdb_value value) {
 	result[str.size()] = '\0';
 	return result;
 }
-duckdb_value duckdb_create_struct_value(duckdb_logical_type type, duckdb_value *values) {
+duckdb_value duckdb_create_struct_value(duckdb_logical_type_const type, duckdb_value_const DUCKDB_API_CONST *values) {
 	if (!type || !values) {
 		return nullptr;
 	}
@@ -340,7 +340,8 @@ duckdb_value duckdb_create_struct_value(duckdb_logical_type type, duckdb_value *
 	return WrapValue(struct_value);
 }
 
-duckdb_value duckdb_create_list_value(duckdb_logical_type type, duckdb_value *values, idx_t value_count) {
+duckdb_value duckdb_create_list_value(duckdb_logical_type_const type, duckdb_value_const DUCKDB_API_CONST *values,
+                                      idx_t value_count) {
 	if (!type || !values) {
 		return nullptr;
 	}
@@ -368,7 +369,8 @@ duckdb_value duckdb_create_list_value(duckdb_logical_type type, duckdb_value *va
 	return WrapValue(list_value);
 }
 
-duckdb_value duckdb_create_array_value(duckdb_logical_type type, duckdb_value *values, idx_t value_count) {
+duckdb_value duckdb_create_array_value(duckdb_logical_type_const type, duckdb_value_const DUCKDB_API_CONST *values,
+                                       idx_t value_count) {
 	if (!type || !values) {
 		return nullptr;
 	}
@@ -399,8 +401,8 @@ duckdb_value duckdb_create_array_value(duckdb_logical_type type, duckdb_value *v
 	return WrapValue(array_value);
 }
 
-duckdb_value duckdb_create_map_value(duckdb_logical_type map_type, duckdb_value *keys, duckdb_value *values,
-                                     idx_t entry_count) {
+duckdb_value duckdb_create_map_value(duckdb_logical_type_const map_type, duckdb_value_const DUCKDB_API_CONST *keys,
+                                     duckdb_value_const DUCKDB_API_CONST *values, idx_t entry_count) {
 	if (!map_type || !keys || !values) {
 		return nullptr;
 	}
@@ -437,7 +439,8 @@ duckdb_value duckdb_create_map_value(duckdb_logical_type map_type, duckdb_value 
 	return WrapValue(map_value);
 }
 
-duckdb_value duckdb_create_union_value(duckdb_logical_type union_type, idx_t tag_index, duckdb_value value) {
+duckdb_value duckdb_create_union_value(duckdb_logical_type_const union_type, idx_t tag_index,
+                                       duckdb_value_const value) {
 	if (!union_type || !value) {
 		return nullptr;
 	}
@@ -465,7 +468,7 @@ duckdb_value duckdb_create_union_value(duckdb_logical_type union_type, idx_t tag
 	return WrapValue(union_value);
 }
 
-idx_t duckdb_get_map_size(duckdb_value value) {
+idx_t duckdb_get_map_size(duckdb_value_const value) {
 	if (!value) {
 		return 0;
 	}
@@ -479,7 +482,7 @@ idx_t duckdb_get_map_size(duckdb_value value) {
 	return children.size();
 }
 
-duckdb_value duckdb_get_map_key(duckdb_value value, idx_t index) {
+duckdb_value duckdb_get_map_key(duckdb_value_const value, idx_t index) {
 	if (!value) {
 		return nullptr;
 	}
@@ -499,7 +502,7 @@ duckdb_value duckdb_get_map_key(duckdb_value value, idx_t index) {
 	return WrapValue(new duckdb::Value(child_struct[0]));
 }
 
-duckdb_value duckdb_get_map_value(duckdb_value value, idx_t index) {
+duckdb_value duckdb_get_map_value(duckdb_value_const value, idx_t index) {
 	if (!value) {
 		return nullptr;
 	}
@@ -519,7 +522,7 @@ duckdb_value duckdb_get_map_value(duckdb_value value, idx_t index) {
 	return WrapValue(new duckdb::Value(child_struct[1]));
 }
 
-bool duckdb_is_null_value(duckdb_value value) {
+bool duckdb_is_null_value(duckdb_value_const value) {
 	if (!value) {
 		return false;
 	}
@@ -530,7 +533,7 @@ duckdb_value duckdb_create_null_value() {
 	return WrapValue(new duckdb::Value());
 }
 
-idx_t duckdb_get_list_size(duckdb_value value) {
+idx_t duckdb_get_list_size(duckdb_value_const value) {
 	if (!value) {
 		return 0;
 	}
@@ -544,7 +547,7 @@ idx_t duckdb_get_list_size(duckdb_value value) {
 	return children.size();
 }
 
-duckdb_value duckdb_get_list_child(duckdb_value value, idx_t index) {
+duckdb_value duckdb_get_list_child(duckdb_value_const value, idx_t index) {
 	if (!value) {
 		return nullptr;
 	}
@@ -562,7 +565,7 @@ duckdb_value duckdb_get_list_child(duckdb_value value, idx_t index) {
 	return WrapValue(new duckdb::Value(children[index]));
 }
 
-duckdb_value duckdb_create_enum_value(duckdb_logical_type type, uint64_t value) {
+duckdb_value duckdb_create_enum_value(duckdb_logical_type_const type, uint64_t value) {
 	if (!type) {
 		return nullptr;
 	}
@@ -579,7 +582,7 @@ duckdb_value duckdb_create_enum_value(duckdb_logical_type type, uint64_t value) 
 	return WrapValue(new duckdb::Value(duckdb::Value::ENUM(value, logical_type)));
 }
 
-uint64_t duckdb_get_enum_value(duckdb_value value) {
+uint64_t duckdb_get_enum_value(duckdb_value_const value) {
 	if (!value) {
 		return 0;
 	}
@@ -592,7 +595,7 @@ uint64_t duckdb_get_enum_value(duckdb_value value) {
 	return val.GetValue<uint64_t>();
 }
 
-duckdb_value duckdb_get_struct_child(duckdb_value value, idx_t index) {
+duckdb_value duckdb_get_struct_child(duckdb_value_const value, idx_t index) {
 	if (!value) {
 		return nullptr;
 	}
@@ -610,7 +613,7 @@ duckdb_value duckdb_get_struct_child(duckdb_value value, idx_t index) {
 	return WrapValue(new duckdb::Value(children[index]));
 }
 
-char *duckdb_value_to_string(duckdb_value val) {
+char *duckdb_value_to_string(duckdb_value_const val) {
 	if (!val) {
 		return nullptr;
 	}

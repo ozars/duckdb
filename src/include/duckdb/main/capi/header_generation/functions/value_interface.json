@@ -544,7 +544,7 @@
             "return_type": "bool",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -561,7 +561,7 @@
             "return_type": "int8_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -578,7 +578,7 @@
             "return_type": "uint8_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -595,7 +595,7 @@
             "return_type": "int16_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -612,7 +612,7 @@
             "return_type": "uint16_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -629,7 +629,7 @@
             "return_type": "int32_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -646,7 +646,7 @@
             "return_type": "uint32_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -663,7 +663,7 @@
             "return_type": "int64_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -680,7 +680,7 @@
             "return_type": "uint64_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -697,7 +697,7 @@
             "return_type": "duckdb_hugeint",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -714,7 +714,7 @@
             "return_type": "duckdb_uhugeint",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -731,7 +731,7 @@
             "return_type": "duckdb_bignum",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -748,7 +748,7 @@
             "return_type": "duckdb_decimal",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -765,7 +765,7 @@
             "return_type": "float",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -782,7 +782,7 @@
             "return_type": "double",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -799,7 +799,7 @@
             "return_type": "duckdb_date",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -816,7 +816,7 @@
             "return_type": "duckdb_time",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -833,7 +833,7 @@
             "return_type": "duckdb_time_ns",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -850,7 +850,7 @@
             "return_type": "duckdb_time_tz",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -867,7 +867,7 @@
             "return_type": "duckdb_timestamp",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -884,7 +884,7 @@
             "return_type": "duckdb_timestamp",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -901,7 +901,7 @@
             "return_type": "duckdb_timestamp_s",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -918,7 +918,7 @@
             "return_type": "duckdb_timestamp_ms",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -935,7 +935,7 @@
             "return_type": "duckdb_timestamp_ns",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -952,7 +952,7 @@
             "return_type": "duckdb_interval",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -969,7 +969,7 @@
             "return_type": "duckdb_logical_type",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -986,7 +986,7 @@
             "return_type": "duckdb_blob",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -1003,7 +1003,7 @@
             "return_type": "duckdb_bit",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -1020,7 +1020,7 @@
             "return_type": "duckdb_uhugeint",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "val"
                 }
             ],
@@ -1037,7 +1037,7 @@
             "return_type": "char *",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1054,11 +1054,11 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "type"
                 },
                 {
-                    "type": "duckdb_value *",
+                    "type": "duckdb_value_const DUCKDB_API_CONST *",
                     "name": "values"
                 }
             ],
@@ -1076,11 +1076,11 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "type"
                 },
                 {
-                    "type": "duckdb_value *",
+                    "type": "duckdb_value_const DUCKDB_API_CONST *",
                     "name": "values"
                 },
                 {
@@ -1103,11 +1103,11 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "type"
                 },
                 {
-                    "type": "duckdb_value *",
+                    "type": "duckdb_value_const DUCKDB_API_CONST *",
                     "name": "values"
                 },
                 {
@@ -1130,15 +1130,15 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "map_type"
                 },
                 {
-                    "type": "duckdb_value *",
+                    "type": "duckdb_value_const DUCKDB_API_CONST *",
                     "name": "keys"
                 },
                 {
-                    "type": "duckdb_value *",
+                    "type": "duckdb_value_const DUCKDB_API_CONST *",
                     "name": "values"
                 },
                 {
@@ -1162,7 +1162,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "union_type"
                 },
                 {
@@ -1170,7 +1170,7 @@
                     "name": "tag_index"
                 },
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1189,7 +1189,7 @@
             "return_type": "idx_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1206,7 +1206,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 },
                 {
@@ -1228,7 +1228,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 },
                 {
@@ -1250,7 +1250,7 @@
             "return_type": "bool",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1276,7 +1276,7 @@
             "return_type": "idx_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1293,7 +1293,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 },
                 {
@@ -1315,7 +1315,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_logical_type",
+                    "type": "duckdb_logical_type_const",
                     "name": "type"
                 },
                 {
@@ -1337,7 +1337,7 @@
             "return_type": "uint64_t",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
@@ -1354,7 +1354,7 @@
             "return_type": "duckdb_value",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 },
                 {
@@ -1376,7 +1376,7 @@
             "return_type": "char *",
             "params": [
                 {
-                    "type": "duckdb_value",
+                    "type": "duckdb_value_const",
                     "name": "value"
                 }
             ],
