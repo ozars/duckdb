@@ -44,7 +44,8 @@ static duckdb_value CAPICreateValue(T input) {
 
 template <class T, LogicalTypeId TYPE_ID>
 static T CAPIGetValue(duckdb_value_const val) {
-	auto &v = UnwrapValue(val);
+	auto v = UnwrapValue(val);
+	// This can modify `v`.
 	if (!v.DefaultTryCastAs(TYPE_ID)) {
 		return duckdb::NullValue<T>();
 	}
@@ -299,8 +300,8 @@ duckdb_logical_type duckdb_get_value_type(duckdb_value_const val) {
 }
 
 char *duckdb_get_varchar(duckdb_value_const value) {
-	auto val = reinterpret_cast<duckdb::Value *>(value);
-	auto str_val = val->DefaultCastAs(duckdb::LogicalType::VARCHAR);
+	const auto& val = UnwrapValue(value);
+	auto str_val = val.DefaultCastAs(duckdb::LogicalType::VARCHAR);
 	auto &str = duckdb::StringValue::Get(str_val);
 
 	auto result = reinterpret_cast<char *>(malloc(sizeof(char) * (str.size() + 1)));
