@@ -80,13 +80,18 @@ duckdb_logical_type duckdb_create_union_type(duckdb_logical_type_const DUCKDB_AP
 		return nullptr;
 	}
 	auto member_types = reinterpret_cast<duckdb::LogicalType DUCKDB_API_CONST * DUCKDB_API_CONST *>(member_types_p);
-	try {
-		duckdb::child_list_t<duckdb::LogicalType> members;
 
-		for (idx_t i = 0; i < member_count; i++) {
-			members.push_back(make_pair(member_names[i], *member_types[i]));
+	duckdb::child_list_t<duckdb::LogicalType> members;
+	members.reserve(member_count);
+	for (idx_t i = 0; i < member_count; i++) {
+		if (!member_names[i] || !member_types[i]) {
+			return nullptr;
 		}
-		duckdb::LogicalType *mtype = new duckdb::LogicalType(duckdb::LogicalType::UNION(members));
+		members.push_back(make_pair(member_names[i], *member_types[i]));
+	}
+
+	try {
+		duckdb::LogicalType *mtype = new duckdb::LogicalType(duckdb::LogicalType::UNION(std::move(members)));
 		return reinterpret_cast<duckdb_logical_type>(mtype);
 	} catch (...) {
 		return nullptr;
@@ -99,19 +104,18 @@ duckdb_logical_type duckdb_create_struct_type(duckdb_logical_type_const DUCKDB_A
 		return nullptr;
 	}
 	auto member_types = reinterpret_cast<duckdb::LogicalType DUCKDB_API_CONST * DUCKDB_API_CONST *>(member_types_p);
+
+	duckdb::child_list_t<duckdb::LogicalType> members;
+	members.reserve(member_count);
 	for (idx_t i = 0; i < member_count; i++) {
 		if (!member_names[i] || !member_types[i]) {
 			return nullptr;
 		}
+		members.push_back(make_pair(member_names[i], *member_types[i]));
 	}
 
 	try {
-		duckdb::child_list_t<duckdb::LogicalType> members;
-
-		for (idx_t i = 0; i < member_count; i++) {
-			members.push_back(make_pair(member_names[i], *member_types[i]));
-		}
-		duckdb::LogicalType *mtype = new duckdb::LogicalType(duckdb::LogicalType::STRUCT(members));
+		duckdb::LogicalType *mtype = new duckdb::LogicalType(duckdb::LogicalType::STRUCT(std::move(members)));
 		return reinterpret_cast<duckdb_logical_type>(mtype);
 	} catch (...) {
 		return nullptr;
