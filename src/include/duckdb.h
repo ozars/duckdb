@@ -3187,7 +3187,7 @@ The result must be destroyed with `duckdb_free`.
 * @param type The logical type
 * @return The alias or `nullptr`
 */
-DUCKDB_C_API char *duckdb_logical_type_get_alias(duckdb_logical_type type);
+DUCKDB_C_API char *duckdb_logical_type_get_alias(duckdb_logical_type_const type);
 
 /*!
 Sets the alias of a duckdb_logical_type.
@@ -3204,7 +3204,7 @@ The return type must be destroyed with `duckdb_destroy_logical_type`.
 * @param type The child type of the list
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_list_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_logical_type duckdb_create_list_type(duckdb_logical_type_const type);
 
 /*!
 Creates an ARRAY type from its child type.
@@ -3214,7 +3214,7 @@ The return type must be destroyed with `duckdb_destroy_logical_type`.
 * @param array_size The number of elements in the array.
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_array_type(duckdb_logical_type type, idx_t array_size);
+DUCKDB_C_API duckdb_logical_type duckdb_create_array_type(duckdb_logical_type_const type, idx_t array_size);
 
 /*!
 Creates a MAP type from its key type and value type.
@@ -3224,7 +3224,8 @@ The return type must be destroyed with `duckdb_destroy_logical_type`.
 * @param value_type The map's value type.
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_map_type(duckdb_logical_type key_type, duckdb_logical_type value_type);
+DUCKDB_C_API duckdb_logical_type duckdb_create_map_type(duckdb_logical_type_const key_type,
+                                                        duckdb_logical_type_const value_type);
 
 /*!
 Creates a UNION type from the passed arrays.
@@ -3235,7 +3236,8 @@ The return type must be destroyed with `duckdb_destroy_logical_type`.
 * @param member_count The number of union members.
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_union_type(duckdb_logical_type *member_types, const char **member_names,
+DUCKDB_C_API duckdb_logical_type duckdb_create_union_type(duckdb_logical_type_const DUCKDB_API_CONST *member_types,
+                                                          const char *DUCKDB_API_CONST *member_names,
                                                           idx_t member_count);
 
 /*!
@@ -3247,7 +3249,8 @@ The resulting type must be destroyed with `duckdb_destroy_logical_type`.
 * @param member_count The number of members of the struct.
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_struct_type(duckdb_logical_type *member_types, const char **member_names,
+DUCKDB_C_API duckdb_logical_type duckdb_create_struct_type(duckdb_logical_type_const DUCKDB_API_CONST *member_types,
+                                                           const char *DUCKDB_API_CONST *member_names,
                                                            idx_t member_count);
 
 /*!
@@ -3258,7 +3261,8 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 * @param member_count The number of elements that were specified in the array.
 * @return The logical type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_create_enum_type(const char **member_names, idx_t member_count);
+DUCKDB_C_API duckdb_logical_type duckdb_create_enum_type(const char *DUCKDB_API_CONST *member_names,
+                                                         idx_t member_count);
 
 /*!
 Creates a DECIMAL type with the specified width and scale.
@@ -3276,7 +3280,7 @@ Retrieves the enum `duckdb_type` of a `duckdb_logical_type`.
 * @param type The logical type.
 * @return The `duckdb_type` id.
 */
-DUCKDB_C_API duckdb_type duckdb_get_type_id(duckdb_logical_type type);
+DUCKDB_C_API duckdb_type duckdb_get_type_id(duckdb_logical_type_const type);
 
 /*!
 Retrieves the width of a decimal type.
@@ -3284,7 +3288,7 @@ Retrieves the width of a decimal type.
 * @param type The logical type object
 * @return The width of the decimal type
 */
-DUCKDB_C_API uint8_t duckdb_decimal_width(duckdb_logical_type type);
+DUCKDB_C_API uint8_t duckdb_decimal_width(duckdb_logical_type_const type);
 
 /*!
 Retrieves the scale of a decimal type.
@@ -3292,7 +3296,7 @@ Retrieves the scale of a decimal type.
 * @param type The logical type object
 * @return The scale of the decimal type
 */
-DUCKDB_C_API uint8_t duckdb_decimal_scale(duckdb_logical_type type);
+DUCKDB_C_API uint8_t duckdb_decimal_scale(duckdb_logical_type_const type);
 
 /*!
 Retrieves the internal storage type of a decimal type.
@@ -3300,7 +3304,7 @@ Retrieves the internal storage type of a decimal type.
 * @param type The logical type object
 * @return The internal type of the decimal type
 */
-DUCKDB_C_API duckdb_type duckdb_decimal_internal_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_type duckdb_decimal_internal_type(duckdb_logical_type_const type);
 
 /*!
 Retrieves the internal storage type of an enum type.
@@ -3308,7 +3312,7 @@ Retrieves the internal storage type of an enum type.
 * @param type The logical type object
 * @return The internal type of the enum type
 */
-DUCKDB_C_API duckdb_type duckdb_enum_internal_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_type duckdb_enum_internal_type(duckdb_logical_type_const type);
 
 /*!
 Retrieves the dictionary size of the enum type.
@@ -3316,7 +3320,7 @@ Retrieves the dictionary size of the enum type.
 * @param type The logical type object
 * @return The dictionary size of the enum type
 */
-DUCKDB_C_API uint32_t duckdb_enum_dictionary_size(duckdb_logical_type type);
+DUCKDB_C_API uint32_t duckdb_enum_dictionary_size(duckdb_logical_type_const type);
 
 /*!
 Retrieves the dictionary value at the specified position from the enum.
@@ -3327,7 +3331,7 @@ The result must be freed with `duckdb_free`.
 * @param index The index in the dictionary
 * @return The string value of the enum type. Must be freed with `duckdb_free`.
 */
-DUCKDB_C_API char *duckdb_enum_dictionary_value(duckdb_logical_type type, idx_t index);
+DUCKDB_C_API char *duckdb_enum_dictionary_value(duckdb_logical_type_const type, idx_t index);
 
 /*!
 Retrieves the child type of the given LIST type. Also accepts MAP types.
@@ -3336,7 +3340,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param type The logical type, either LIST or MAP.
 * @return The child type of the LIST or MAP type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_list_type_child_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_logical_type duckdb_list_type_child_type(duckdb_logical_type_const type);
 
 /*!
 Retrieves the child type of the given ARRAY type.
@@ -3346,7 +3350,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param type The logical type. Must be ARRAY.
 * @return The child type of the ARRAY type.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_array_type_child_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_logical_type duckdb_array_type_child_type(duckdb_logical_type_const type);
 
 /*!
 Retrieves the array size of the given array type.
@@ -3354,7 +3358,7 @@ Retrieves the array size of the given array type.
 * @param type The logical type object
 * @return The fixed number of elements the values of this array type can store.
 */
-DUCKDB_C_API idx_t duckdb_array_type_array_size(duckdb_logical_type type);
+DUCKDB_C_API idx_t duckdb_array_type_array_size(duckdb_logical_type_const type);
 
 /*!
 Retrieves the key type of the given map type.
@@ -3364,7 +3368,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param type The logical type object
 * @return The key type of the map type. Must be destroyed with `duckdb_destroy_logical_type`.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_map_type_key_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_logical_type duckdb_map_type_key_type(duckdb_logical_type_const type);
 
 /*!
 Retrieves the value type of the given map type.
@@ -3374,7 +3378,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param type The logical type object
 * @return The value type of the map type. Must be destroyed with `duckdb_destroy_logical_type`.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_map_type_value_type(duckdb_logical_type type);
+DUCKDB_C_API duckdb_logical_type duckdb_map_type_value_type(duckdb_logical_type_const type);
 
 /*!
 Returns the number of children of a struct type.
@@ -3382,7 +3386,7 @@ Returns the number of children of a struct type.
 * @param type The logical type object
 * @return The number of children of a struct type.
 */
-DUCKDB_C_API idx_t duckdb_struct_type_child_count(duckdb_logical_type type);
+DUCKDB_C_API idx_t duckdb_struct_type_child_count(duckdb_logical_type_const type);
 
 /*!
 Retrieves the name of the struct child.
@@ -3393,7 +3397,7 @@ The result must be freed with `duckdb_free`.
 * @param index The child index
 * @return The name of the struct type. Must be freed with `duckdb_free`.
 */
-DUCKDB_C_API char *duckdb_struct_type_child_name(duckdb_logical_type type, idx_t index);
+DUCKDB_C_API char *duckdb_struct_type_child_name(duckdb_logical_type_const type, idx_t index);
 
 /*!
 Retrieves the child type of the given struct type at the specified index.
@@ -3404,7 +3408,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param index The child index
 * @return The child type of the struct type. Must be destroyed with `duckdb_destroy_logical_type`.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_struct_type_child_type(duckdb_logical_type type, idx_t index);
+DUCKDB_C_API duckdb_logical_type duckdb_struct_type_child_type(duckdb_logical_type_const type, idx_t index);
 
 /*!
 Returns the number of members that the union type has.
@@ -3412,7 +3416,7 @@ Returns the number of members that the union type has.
 * @param type The logical type (union) object
 * @return The number of members of a union type.
 */
-DUCKDB_C_API idx_t duckdb_union_type_member_count(duckdb_logical_type type);
+DUCKDB_C_API idx_t duckdb_union_type_member_count(duckdb_logical_type_const type);
 
 /*!
 Retrieves the name of the union member.
@@ -3423,7 +3427,7 @@ The result must be freed with `duckdb_free`.
 * @param index The child index
 * @return The name of the union member. Must be freed with `duckdb_free`.
 */
-DUCKDB_C_API char *duckdb_union_type_member_name(duckdb_logical_type type, idx_t index);
+DUCKDB_C_API char *duckdb_union_type_member_name(duckdb_logical_type_const type, idx_t index);
 
 /*!
 Retrieves the child type of the given union member at the specified index.
@@ -3434,7 +3438,7 @@ The result must be freed with `duckdb_destroy_logical_type`.
 * @param index The child index
 * @return The child type of the union member. Must be destroyed with `duckdb_destroy_logical_type`.
 */
-DUCKDB_C_API duckdb_logical_type duckdb_union_type_member_type(duckdb_logical_type type, idx_t index);
+DUCKDB_C_API duckdb_logical_type duckdb_union_type_member_type(duckdb_logical_type_const type, idx_t index);
 
 /*!
 Destroys the logical type and de-allocates all memory allocated for that type.
@@ -3451,8 +3455,8 @@ The type must have an alias
 * @param type The custom type to register
 * @return Whether or not the registration was successful.
 */
-DUCKDB_C_API duckdb_state duckdb_register_logical_type(duckdb_connection con, duckdb_logical_type type,
-                                                       duckdb_create_type_info info);
+DUCKDB_C_API duckdb_state duckdb_register_logical_type(duckdb_connection_const con, duckdb_logical_type_const type,
+                                                       duckdb_create_type_info_const info);
 
 //----------------------------------------------------------------------------------------------------------------------
 // Data Chunk Interface

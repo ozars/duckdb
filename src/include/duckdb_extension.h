@@ -245,38 +245,39 @@ typedef struct {
 	uint64_t (*duckdb_get_enum_value)(duckdb_value_const value);
 	duckdb_value (*duckdb_get_struct_child)(duckdb_value_const value, idx_t index);
 	duckdb_logical_type (*duckdb_create_logical_type)(duckdb_type type);
-	char *(*duckdb_logical_type_get_alias)(duckdb_logical_type type);
+	char *(*duckdb_logical_type_get_alias)(duckdb_logical_type_const type);
 	void (*duckdb_logical_type_set_alias)(duckdb_logical_type type, const char *alias);
-	duckdb_logical_type (*duckdb_create_list_type)(duckdb_logical_type type);
-	duckdb_logical_type (*duckdb_create_array_type)(duckdb_logical_type type, idx_t array_size);
-	duckdb_logical_type (*duckdb_create_map_type)(duckdb_logical_type key_type, duckdb_logical_type value_type);
-	duckdb_logical_type (*duckdb_create_union_type)(duckdb_logical_type *member_types, const char **member_names,
-	                                                idx_t member_count);
-	duckdb_logical_type (*duckdb_create_struct_type)(duckdb_logical_type *member_types, const char **member_names,
-	                                                 idx_t member_count);
-	duckdb_logical_type (*duckdb_create_enum_type)(const char **member_names, idx_t member_count);
+	duckdb_logical_type (*duckdb_create_list_type)(duckdb_logical_type_const type);
+	duckdb_logical_type (*duckdb_create_array_type)(duckdb_logical_type_const type, idx_t array_size);
+	duckdb_logical_type (*duckdb_create_map_type)(duckdb_logical_type_const key_type,
+	                                              duckdb_logical_type_const value_type);
+	duckdb_logical_type (*duckdb_create_union_type)(duckdb_logical_type_const DUCKDB_API_CONST *member_types,
+	                                                const char *DUCKDB_API_CONST *member_names, idx_t member_count);
+	duckdb_logical_type (*duckdb_create_struct_type)(duckdb_logical_type_const DUCKDB_API_CONST *member_types,
+	                                                 const char *DUCKDB_API_CONST *member_names, idx_t member_count);
+	duckdb_logical_type (*duckdb_create_enum_type)(const char *DUCKDB_API_CONST *member_names, idx_t member_count);
 	duckdb_logical_type (*duckdb_create_decimal_type)(uint8_t width, uint8_t scale);
-	duckdb_type (*duckdb_get_type_id)(duckdb_logical_type type);
-	uint8_t (*duckdb_decimal_width)(duckdb_logical_type type);
-	uint8_t (*duckdb_decimal_scale)(duckdb_logical_type type);
-	duckdb_type (*duckdb_decimal_internal_type)(duckdb_logical_type type);
-	duckdb_type (*duckdb_enum_internal_type)(duckdb_logical_type type);
-	uint32_t (*duckdb_enum_dictionary_size)(duckdb_logical_type type);
-	char *(*duckdb_enum_dictionary_value)(duckdb_logical_type type, idx_t index);
-	duckdb_logical_type (*duckdb_list_type_child_type)(duckdb_logical_type type);
-	duckdb_logical_type (*duckdb_array_type_child_type)(duckdb_logical_type type);
-	idx_t (*duckdb_array_type_array_size)(duckdb_logical_type type);
-	duckdb_logical_type (*duckdb_map_type_key_type)(duckdb_logical_type type);
-	duckdb_logical_type (*duckdb_map_type_value_type)(duckdb_logical_type type);
-	idx_t (*duckdb_struct_type_child_count)(duckdb_logical_type type);
-	char *(*duckdb_struct_type_child_name)(duckdb_logical_type type, idx_t index);
-	duckdb_logical_type (*duckdb_struct_type_child_type)(duckdb_logical_type type, idx_t index);
-	idx_t (*duckdb_union_type_member_count)(duckdb_logical_type type);
-	char *(*duckdb_union_type_member_name)(duckdb_logical_type type, idx_t index);
-	duckdb_logical_type (*duckdb_union_type_member_type)(duckdb_logical_type type, idx_t index);
+	duckdb_type (*duckdb_get_type_id)(duckdb_logical_type_const type);
+	uint8_t (*duckdb_decimal_width)(duckdb_logical_type_const type);
+	uint8_t (*duckdb_decimal_scale)(duckdb_logical_type_const type);
+	duckdb_type (*duckdb_decimal_internal_type)(duckdb_logical_type_const type);
+	duckdb_type (*duckdb_enum_internal_type)(duckdb_logical_type_const type);
+	uint32_t (*duckdb_enum_dictionary_size)(duckdb_logical_type_const type);
+	char *(*duckdb_enum_dictionary_value)(duckdb_logical_type_const type, idx_t index);
+	duckdb_logical_type (*duckdb_list_type_child_type)(duckdb_logical_type_const type);
+	duckdb_logical_type (*duckdb_array_type_child_type)(duckdb_logical_type_const type);
+	idx_t (*duckdb_array_type_array_size)(duckdb_logical_type_const type);
+	duckdb_logical_type (*duckdb_map_type_key_type)(duckdb_logical_type_const type);
+	duckdb_logical_type (*duckdb_map_type_value_type)(duckdb_logical_type_const type);
+	idx_t (*duckdb_struct_type_child_count)(duckdb_logical_type_const type);
+	char *(*duckdb_struct_type_child_name)(duckdb_logical_type_const type, idx_t index);
+	duckdb_logical_type (*duckdb_struct_type_child_type)(duckdb_logical_type_const type, idx_t index);
+	idx_t (*duckdb_union_type_member_count)(duckdb_logical_type_const type);
+	char *(*duckdb_union_type_member_name)(duckdb_logical_type_const type, idx_t index);
+	duckdb_logical_type (*duckdb_union_type_member_type)(duckdb_logical_type_const type, idx_t index);
 	void (*duckdb_destroy_logical_type)(duckdb_logical_type *type);
-	duckdb_state (*duckdb_register_logical_type)(duckdb_connection con, duckdb_logical_type type,
-	                                             duckdb_create_type_info info);
+	duckdb_state (*duckdb_register_logical_type)(duckdb_connection_const con, duckdb_logical_type_const type,
+	                                             duckdb_create_type_info_const info);
 	duckdb_data_chunk (*duckdb_create_data_chunk)(duckdb_logical_type *types, idx_t column_count);
 	void (*duckdb_destroy_data_chunk)(duckdb_data_chunk *chunk);
 	void (*duckdb_data_chunk_reset)(duckdb_data_chunk chunk);
